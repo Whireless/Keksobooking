@@ -1,5 +1,5 @@
 // Генерация случайного числа
-const randomNum = (min, max) => {
+const getRandomNum = (min, max) => {
   if (min < 0 || max < 0) {
     return -1;
   } else if (max === min) {
@@ -9,19 +9,41 @@ const randomNum = (min, max) => {
 };
 
 // Генерация числа с плавающей запятой
-const coordinates = (min, max) => {
+const getFloatNum = (min, max) => {
   if (min < 0 || max < 0) {
     return -1;
   } else if (max === min) {
     return min;
   }
   return Math.random() * (max - min) + min;
-}
+};
 
 // Рандомный элемент массива
-const getRandomArrayElement = (elements) => elements[randomNum(0, elements.length - 1)];
+const getRandomArrElement = (elements) => elements[getRandomNum(0, elements.length - 1)];
 
 // Cортировка массива случайной длинны
-const getSortingArray = (arr) => arr.slice(randomNum(0, arr.length - 1));
+const getSortingArr = (arr) => arr.slice(getRandomNum(0, arr.length - 1));
 
-export {randomNum, coordinates, getRandomArrayElement, getSortingArray};
+// Создание отдельных DOM - элементов
+const createElement = (tagName, classOne, classTwo, text, width, height, src, alt) => {
+  let element = document.createElement(tagName);
+  element.classList.add(classOne);
+
+  if (classTwo) {
+    element.classList.add(classTwo);
+  }
+
+  if (text) {
+    element.textContent = text;
+  }
+
+  if (width && height && src && alt) {
+    element.setAttribute('width', width);
+    element.setAttribute('height', height);
+    element.setAttribute('src', src);
+    element.setAttribute('alt', alt);
+  }
+  return element;
+};
+
+export {getRandomNum, getFloatNum, getRandomArrElement, getSortingArr, createElement};
