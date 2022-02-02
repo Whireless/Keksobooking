@@ -22,8 +22,8 @@ const locations = {
 };
 
 const PRICE = {
-  min: 11000,
-  max: 79000
+  min: 0,
+  max: 50000
 };
 
 const TYPE = {
@@ -53,7 +53,7 @@ const FEATURES = [
   'parking',
   'washer',
   'elevator',
-  'conditioner'
+  'conditioner',
 ];
 
 const DESCRIPTION = [
