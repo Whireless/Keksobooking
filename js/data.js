@@ -84,7 +84,7 @@ const generationData = () => {
       },
       offer: {
         title: getRandomArrElement(TITLE),
-        address: '' + getFloatNum(locations.x, locations.y),
+        address: `${locations.x}, ${locations.y}`,
         price: getRandomNum(PRICE.min, PRICE.max),
         type: getRandomArrElement(Object.values(TYPE)),
         rooms: getRandomNum(ROOMS.min, ROOMS.max),
@@ -93,7 +93,7 @@ const generationData = () => {
         checkout: getRandomArrElement(CHECKOUT),
         features: getSortingArr(FEATURES),
         description: getRandomArrElement(DESCRIPTION),
-        photos: getSortingArr(PHOTOS),
+        photos: getRandomArrElement(PHOTOS),
       },
       location: {
         x: getFloatNum(35.65000, 35.70000),

@@ -25,9 +25,13 @@ const getRandomArrElement = (elements) => elements[getRandomNum(0, elements.leng
 const getSortingArr = (arr) => arr.slice(getRandomNum(0, arr.length - 1));
 
 // Создание отдельных DOM - элементов
-const createElement = (tagName, classOne, classTwo, text, width, height, src, alt) => {
+const createElement = (tagName, parentTag, classOne, classTwo, text, width, height, src, alt) => {
   let element = document.createElement(tagName);
   element.classList.add(classOne);
+
+  if (parentTag) {
+    parentTag.appendChild(element);
+  }
 
   if (classTwo) {
     element.classList.add(classTwo);

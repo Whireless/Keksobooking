@@ -1,8 +1,27 @@
-const form = document.querySelector('.ad-form');
-const homeType = form.querySelector('#type');
-const homePrice = form.querySelector('#price');
-const timeIn = form.querySelector('#timein');
-const timeOut = form.querySelector('#timeout');
+const formFilters = document.querySelector('.map__filters');
+const filtersOptions = formFilters.querySelectorAll('select');
+const filtersFieldset = formFilters.querySelector('fieldset');
+const formNotice = document.querySelector('.ad-form');
+const noticeFieldsets = formNotice.querySelectorAll('fieldset');
+const homeAddress = formNotice.querySelector('#address');
+const homeType = formNotice.querySelector('#type');
+const homePrice = formNotice.querySelector('#price');
+const timeIn = formNotice.querySelector('#timein');
+const timeOut = formNotice.querySelector('#timeout');
+
+formNotice.classList.add('ad-form--disabled');
+formFilters.classList.add('map__filters--disabled');
+
+homeAddress.disabled = true;
+filtersFieldset.disabled = true;
+
+noticeFieldsets.forEach(fieldset => {
+  fieldset.disabled = true;
+});
+
+filtersOptions.forEach(option => {
+  option.disabled = true;
+});
 
 homeType.addEventListener('change', function () {
   if (homeType.value === 'bungalow') {
@@ -39,3 +58,5 @@ timeOut.addEventListener('change', function () {
     timeIn.value = '14:00';
   }
 });
+
+export {formNotice, noticeFieldsets, formFilters, filtersOptions, filtersFieldset, homeAddress};

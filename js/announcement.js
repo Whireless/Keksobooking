@@ -1,33 +1,33 @@
-import {createElement, getRandomArrElement} from './util.js';
-import {locationList} from './data.js';
+const cardTemp = document.querySelector('#card').content;
 
-const promo = document.querySelector('.promo');
-const card = document.querySelector('#card').content;
-const fragment = document.createDocumentFragment();
+const createAnnouncement = (elem) => {
+  const card = cardTemp.cloneNode(true);
+  const popup = card.querySelector('.popup');
+  const image = popup.querySelector('.popup__avatar');
+  const title = popup.querySelector('.popup__title');
+  const address = popup.querySelector('.popup__text--address');
+  const price = popup.querySelector('.popup__text--price');
+  const type = popup.querySelector('.popup__type');
+  const capacity = popup.querySelector('.popup__text--capacity');
+  const time = popup.querySelector('.popup__text--time');
+  const features = popup.querySelector('.popup__features');
+  const description = popup.querySelector('.popup__description');
+  const photo = popup.querySelector('.popup__photo');
 
-const createAnnouncement = () => {
-  for (let i = 0; i < locationList.length; i++) {
-    const popup = card.children[0].cloneNode(false);
-    popup.appendChild(createElement('img', 'popup__avatar', null, null, 70, 70, locationList[i].author.avatar, 'Аватар пользователя'));
-    popup.appendChild(createElement('h3', 'popup__title', null, locationList[i].offer.title));
-    popup.appendChild(createElement('p', 'popup__text', 'popup__text--address', locationList[i].offer.address));
-    popup.appendChild(createElement('p', 'popup__text', 'popup__text--price', `${locationList[i].offer.price} ₽/ночь`));
-    popup.appendChild(createElement('h4', 'popup__type', null, locationList[i].offer.type));
-    popup.appendChild(createElement('p', 'popup__text', 'popup__text--capacity', `${locationList[i].offer.rooms} комнаты для ${locationList[i].offer.guests} гостей`));
-    popup.appendChild(createElement('p', 'popup__text', 'popup__text--time', `Заезд после ${locationList[i].offer.checkin}, выезд до ${locationList[i].offer.checkout}`));
+  image.src = elem.author.avatar;
+  title.textContent = elem.offer.title;
+  address.textContent = elem.offer.address;
+  price.textContent = `${elem.offer.price} ₽/ночь`;
+  type.textContent = elem.offer.type;
+  capacity.textContent = `${elem.offer.rooms} комнаты для ${elem.offer.guests} гостей`;
+  time.textContent = `Заезд после ${elem.offer.checkin}, выезд до ${elem.offer.checkout}`;
+  features.textContent = '';
+  const getFeatures = (arr) => arr.map((feature) => `<li class="popup__feature popup__feature--${feature}"></li>`).join('');
+  features.insertAdjacentHTML('afterbegin', getFeatures(elem.offer.features));
+  description.textContent = elem.offer.description;
+  photo.src = elem.offer.photos;
 
-    const features = popup.appendChild(createElement('ul', 'popup__features'));
-    for (let j = 0; j < locationList[i].offer.features.length; j++) {
-      features.appendChild(createElement('li', 'popup__feature', `popup__feature--${locationList[i].offer.features[j]}`));
-    };
-
-    popup.appendChild(createElement('p', 'popup__description', null, locationList[i].offer.description));
-    const photos = popup.appendChild(createElement('div', 'popup__photos'));
-    photos.appendChild(createElement('img', 'popup__photo', null, null, 45, 40, getRandomArrElement(locationList[i].offer.photos), 'Фотография жилья'));
-    fragment.appendChild(popup);
-  }
-  return fragment;
+  return popup;
 };
-createAnnouncement();
 
-promo.appendChild(fragment);
+export {createAnnouncement};
