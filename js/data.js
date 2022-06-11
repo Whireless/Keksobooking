@@ -18,12 +18,12 @@ const TITLE = [
 
 const locations = {
   x: getFloatNum(35.65000, 35.70000),
-  y: getFloatNum(139.70000, 139.80000)
+  y: getFloatNum(139.70000, 139.80000),
 };
 
 const PRICE = {
   min: 0,
-  max: 50000
+  max: 50000,
 };
 
 const TYPE = {
@@ -35,12 +35,12 @@ const TYPE = {
 
 const ROOMS = {
   min: 2,
-  max: 7
+  max: 7,
 };
 
 const GUESTS = {
   min: 2,
-  max: 8
+  max: 8,
 };
 
 const CHECKIN = ['12:00', '13:00', '14:00'];
@@ -80,7 +80,7 @@ const generationData = () => {
   for (let i = 1; i <= ALL_LOCATION; i++) {
     locationList.push({
       author: {
-        avatar: 'img/avatars/user0' + i + '.png'
+        avatar: 'img/avatars/user0' + i + '.png',
       },
       offer: {
         title: getRandomArrElement(TITLE),

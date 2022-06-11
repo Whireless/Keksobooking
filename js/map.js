@@ -56,28 +56,28 @@ createFetch().then((announceList) => {
   announceList.forEach((elem) => {
     const icon = L.icon(
       {
-        iconUrl: '../leaflet/images/pin.svg',
+        iconUrl: './leaflet/images/pin.svg',
         iconSize: [40, 40],
         iconAnchor: [20, 40],
-      }
+      },
     );
 
     const marker = L.marker(
       {
-        lat: elem.location.x,
-        lng: elem.location.y,
+        lat: elem.location.lat,
+        lng: elem.location.lng,
       },
       {
         icon,
-      }
+      },
     );
 
     marker
       .addTo(map)
       .bindPopup(createAnnouncement(elem),
-      {
-        keepInView: true,
-      },
-    );
+        {
+          keepInView: true,
+        },
+      );
   });
 });

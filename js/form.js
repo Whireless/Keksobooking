@@ -42,7 +42,7 @@ homeTitle.addEventListener('input', () => {
                                   (Удалите лишние ${valueLength - MAX__TITLE_LENGTH} симв.)`);
   } else {
     homeTitle.setCustomValidity('');
-  };
+  }
 
   homeTitle.reportValidity();
 });
@@ -51,16 +51,16 @@ homeType.addEventListener('change', function () {
   if (homeType.value === 'bungalow') {
     homePrice.min = 0;
     homePrice.placeholder = 0;
-   } else if (homeType.value === 'flat') {
-     homePrice.min = 1000;
-     homePrice.placeholder = 1000;
-   } else if (homeType.value === 'house') {
-     homePrice.min = 5000;
-     homePrice.placeholder = 5000;
-   } else {
-     homePrice.min = 10000;
-     homePrice.placeholder = 10000;
-   }
+  } else if (homeType.value === 'flat') {
+    homePrice.min = 1000;
+    homePrice.placeholder = 1000;
+  } else if (homeType.value === 'house') {
+    homePrice.min = 5000;
+    homePrice.placeholder = 5000;
+  } else {
+    homePrice.min = 10000;
+    homePrice.placeholder = 10000;
+  }
 });
 
 homePrice.addEventListener('input', () => {
@@ -70,7 +70,7 @@ homePrice.addEventListener('input', () => {
     homePrice.setCustomValidity(`Нельзя установить ценник выше ${MAX__PRICE}`);
   } else {
     homePrice.setCustomValidity('');
-  };
+  }
 
   homePrice.reportValidity();
 });
@@ -119,7 +119,7 @@ rooms.addEventListener('change', () => {
     capOption[1].disabled = true;
     capOption[2].disabled = true;
     capOption[3].disabled = false;
-  };
+  }
 });
 
 export {formNotice, noticeFieldsets, formFilters, filtersOptions, filtersFieldset, homeAddress};
