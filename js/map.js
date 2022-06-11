@@ -1,6 +1,6 @@
 import {formNotice, noticeFieldsets, formFilters, filtersFieldset, filtersOptions, homeAddress} from './form.js';
-import {locationList} from './data.js';
 import {createAnnouncement} from './announcement.js';
+import {createFetch} from './server.js';
 
 const map = L.map('map-canvas')
   .on('load', () => {
@@ -52,30 +52,32 @@ marker.on('moveend', (evt) => {
   homeAddress.value = evt.target.getLatLng();
 });
 
-locationList.forEach((elem, i) => {
-  const icon = L.icon(
-    {
-      iconUrl: '../leaflet/images/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
-    }
-  );
+createFetch().then((announceList) => {
+  announceList.forEach((elem) => {
+    const icon = L.icon(
+      {
+        iconUrl: '../leaflet/images/pin.svg',
+        iconSize: [40, 40],
+        iconAnchor: [20, 40],
+      }
+    );
 
-  const marker = L.marker(
-    {
-      lat: locationList[i].location.x,
-      lng: locationList[i].location.y,
-    },
-    {
-      icon,
-    }
-  );
+    const marker = L.marker(
+      {
+        lat: elem.location.x,
+        lng: elem.location.y,
+      },
+      {
+        icon,
+      }
+    );
 
-  marker
-    .addTo(map)
-    .bindPopup(createAnnouncement(elem),
-    {
-      keepInView: true,
-    },
-  );
+    marker
+      .addTo(map)
+      .bindPopup(createAnnouncement(elem),
+      {
+        keepInView: true,
+      },
+    );
+  });
 });
