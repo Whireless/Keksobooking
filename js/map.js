@@ -1,6 +1,6 @@
-import {formNotice, noticeFieldsets, formFilters, filtersFieldset, filtersOptions, homeAddress} from './form.js';
+import {formNotice, noticeFieldsets, formFilters, filtersFieldset, filtersOptions, homeAddress, formReset} from './form.js';
 import {createAnnouncement} from './announcement.js';
-import {createFetch} from './server.js';
+import {getData} from './server.js';
 
 const map = L.map('map-canvas')
   .on('load', () => {
@@ -46,14 +46,31 @@ const marker = L.marker(
   },
 ).addTo(map);
 
-homeAddress.value = marker.getLatLng();
+homeAddress.value = Object.values(marker.getLatLng());
 
 marker.on('moveend', (evt) => {
-  homeAddress.value = evt.target.getLatLng();
+  homeAddress.value = Object.values(evt.target.getLatLng());
 });
 
-createFetch().then((announceList) => {
-  announceList.forEach((elem) => {
+// getResetAddress(marker, homeAddress);
+
+// formReset.addEventListener('click', () => {
+
+//   const newMarker = L.marker(
+//     {
+//       lat: 35.6837,
+//       lng: 139.753,
+//     },
+//     {
+//       draggable: true,
+//       icon: youPinIcon,
+//     },
+//   ).addTo(map);
+//   homeAddress.value = newMarker.getLatLng();
+// });
+
+getData().then((announces) => {
+  announces.forEach((elem) => {
     const icon = L.icon(
       {
         iconUrl: './leaflet/images/pin.svg',

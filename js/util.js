@@ -50,4 +50,8 @@ const createElement = (tagName, parentTag, classOne, classTwo, text, width, heig
   return element;
 };
 
-export {getRandomNum, getFloatNum, getRandomArrElement, getSortingArr, createElement};
+const isEscEvt = (evt) => {
+  return evt.key === 'Escape' || evt.key === 'Esc'
+};
+
+export {getRandomNum, getFloatNum, getRandomArrElement, getSortingArr, createElement, isEscEvt};

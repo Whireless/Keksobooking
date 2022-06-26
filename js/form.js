@@ -1,3 +1,5 @@
+import {getData, sendData} from "./server.js";
+
 const MIN_TITLE_LENGTH = 30;
 const MAX__TITLE_LENGTH = 100;
 const MAX__PRICE = 1000000;
@@ -16,6 +18,7 @@ const timeOut = formNotice.querySelector('#timeout');
 const rooms = formNotice.querySelector('#room_number');
 const capacity = formNotice.querySelector('#capacity');
 const capOption = capacity.querySelectorAll('#capacity option');
+const formReset = formNotice.querySelector('.ad-form__reset'); // Кнопка сброса формы
 
 formNotice.classList.add('ad-form--disabled');
 formFilters.classList.add('map__filters--disabled');
@@ -122,4 +125,22 @@ rooms.addEventListener('change', () => {
   }
 });
 
-export {formNotice, noticeFieldsets, formFilters, filtersOptions, filtersFieldset, homeAddress};
+formNotice.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const formData = new FormData(evt.target);
+  sendData(formData);
+});
+
+// const getResetAddress = (marker, address) => {
+  // formReset.addEventListener('click', () => {
+  //   marker = L.marker(
+  //     {
+  //       lat: 35.6837,
+  //       lng: 139.753,
+  //     },
+  //   )
+  //   homeAddress.value = marker.getLatLng();
+  // });
+// };
+
+export {formNotice, noticeFieldsets, formFilters, filtersOptions, filtersFieldset, homeAddress, formReset};
