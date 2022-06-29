@@ -1,13 +1,15 @@
-import {getData, sendData} from "./server.js";
+import {sendData} from "./server.js";
+import {isEscEvt} from './util.js'
 
 const MIN_TITLE_LENGTH = 30;
 const MAX__TITLE_LENGTH = 100;
 const MAX__PRICE = 1000000;
 
-const formFilters = document.querySelector('.map__filters');
+const body = document.querySelector('body');
+const formFilters = body.querySelector('.map__filters');
 const filtersOptions = formFilters.querySelectorAll('select');
 const filtersFieldset = formFilters.querySelector('fieldset');
-const formNotice = document.querySelector('.ad-form');
+const formNotice = body.querySelector('.ad-form');
 const noticeFieldsets = formNotice.querySelectorAll('fieldset');
 const homeTitle = formNotice.querySelector('#title');
 const homeAddress = formNotice.querySelector('#address');
@@ -125,10 +127,50 @@ rooms.addEventListener('change', () => {
   }
 });
 
+const sendSuccess = () => {
+  const sccsTemplate = body.querySelector('#success').content;
+  const sccsClone = sccsTemplate.cloneNode(true);
+  const sccsBlock = sccsClone.querySelector('.success');
+  sccsBlock.style.display = 'block';
+  body.append(sccsBlock);
+
+  body.addEventListener('keydown', (evt) => {
+    if (isEscEvt(evt)) {
+      evt.preventDefault();
+      sccsBlock.remove();
+    }
+  });
+
+  body.addEventListener('click', () => {
+    sccsBlock.remove();
+  });
+};
+
+const sendFail = () => {
+  const errTemplate = body.querySelector('#error').content;
+  const errClone = errTemplate.cloneNode(true);
+  const errBlock = errClone.querySelector('.error');
+  errBlock.style.display = 'block';
+  body.append(errBlock);
+
+  body.addEventListener('keydown', (evt) => {
+    if (isEscEvt(evt)) {
+      evt.preventDefault();
+      errBlock.remove();
+    }
+  });
+
+  body.addEventListener('click', () => {
+    errBlock.remove();
+  });
+};
+
 formNotice.addEventListener('submit', (evt) => {
   evt.preventDefault();
+
   const formData = new FormData(evt.target);
-  sendData(formData);
+  // console.log(formData);
+  sendData(sendSuccess(), sendFail(), formData);
 });
 
 // const getResetAddress = (marker, address) => {
