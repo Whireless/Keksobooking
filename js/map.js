@@ -1,6 +1,7 @@
 import {formNotice, noticeFieldsets, formFilters, filtersFieldset, filtersOptions, homeAddress, formReset} from './form.js';
 import {createAnnouncement} from './announcement.js';
-import {getData} from './server.js';
+import {getData, sendData} from './server.js';
+import {sendSuccess, sendFail} from './form.js';
 
 const map = L.map('map-canvas')
   .on('load', () => {
@@ -50,6 +51,14 @@ homeAddress.value = Object.values(marker.getLatLng());
 
 marker.on('moveend', (evt) => {
   homeAddress.value = Object.values(evt.target.getLatLng());
+});
+
+formNotice.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+
+  const formData = new FormData(evt.target);
+  console.log(formData);
+  sendData(sendSuccess, sendFail, formData);
 });
 
 // getResetAddress(marker, homeAddress);

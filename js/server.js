@@ -19,10 +19,10 @@ const sendData = (success, fail, formData) => {
     console.log(response.ok, response.status);
 
     if (response.ok) {
-      success;
+      success();
       return response.json;
     } else {
-      fail;
+      fail();
     }
   })
   .catch((err) => console.log(err))

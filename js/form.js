@@ -1,4 +1,3 @@
-import {sendData} from "./server.js";
 import {isEscEvt} from './util.js'
 
 const MIN_TITLE_LENGTH = 30;
@@ -25,7 +24,6 @@ const formReset = formNotice.querySelector('.ad-form__reset'); // Кнопка �
 formNotice.classList.add('ad-form--disabled');
 formFilters.classList.add('map__filters--disabled');
 
-homeAddress.disabled = true;
 filtersFieldset.disabled = true;
 
 noticeFieldsets.forEach(fieldset => {
@@ -165,14 +163,6 @@ const sendFail = () => {
   });
 };
 
-formNotice.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-
-  const formData = new FormData(evt.target);
-  // console.log(formData);
-  sendData(sendSuccess(), sendFail(), formData);
-});
-
 // const getResetAddress = (marker, address) => {
   // formReset.addEventListener('click', () => {
   //   marker = L.marker(
@@ -185,4 +175,4 @@ formNotice.addEventListener('submit', (evt) => {
   // });
 // };
 
-export {formNotice, noticeFieldsets, formFilters, filtersOptions, filtersFieldset, homeAddress, formReset};
+export {formNotice, noticeFieldsets, formFilters, filtersOptions, filtersFieldset, homeAddress, formReset, sendSuccess, sendFail};
