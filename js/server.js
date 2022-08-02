@@ -16,8 +16,6 @@ const sendData = (success, fail, formData) => {
     },
   )
   .then((response) => {
-    console.log(response.ok, response.status);
-
     if (response.ok) {
       success();
       return response.json;

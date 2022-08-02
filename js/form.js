@@ -18,8 +18,9 @@ const timeIn = formNotice.querySelector('#timein');
 const timeOut = formNotice.querySelector('#timeout');
 const rooms = formNotice.querySelector('#room_number');
 const capacity = formNotice.querySelector('#capacity');
+const description = formNotice.querySelector('#description');
 const capOption = capacity.querySelectorAll('#capacity option');
-const formReset = formNotice.querySelector('.ad-form__reset'); // Кнопка сброса формы
+const resetButton = formNotice.querySelector('.ad-form__reset');
 
 formNotice.classList.add('ad-form--disabled');
 formFilters.classList.add('map__filters--disabled');
@@ -132,6 +133,10 @@ const sendSuccess = () => {
   sccsBlock.style.display = 'block';
   body.append(sccsBlock);
 
+  homeTitle.value = '';
+  homePrice.value = '';
+  description.value = '';
+
   body.addEventListener('keydown', (evt) => {
     if (isEscEvt(evt)) {
       evt.preventDefault();
@@ -163,16 +168,4 @@ const sendFail = () => {
   });
 };
 
-// const getResetAddress = (marker, address) => {
-  // formReset.addEventListener('click', () => {
-  //   marker = L.marker(
-  //     {
-  //       lat: 35.6837,
-  //       lng: 139.753,
-  //     },
-  //   )
-  //   homeAddress.value = marker.getLatLng();
-  // });
-// };
-
-export {formNotice, noticeFieldsets, formFilters, filtersOptions, filtersFieldset, homeAddress, formReset, sendSuccess, sendFail};
+export {formNotice, noticeFieldsets, formFilters, filtersOptions, filtersFieldset, homeAddress, resetButton, sendSuccess, sendFail};

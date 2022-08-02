@@ -1,4 +1,4 @@
-import {formNotice, noticeFieldsets, formFilters, filtersFieldset, filtersOptions, homeAddress, formReset} from './form.js';
+import {formNotice, noticeFieldsets, formFilters, filtersFieldset, filtersOptions, homeAddress, resetButton} from './form.js';
 import {createAnnouncement} from './announcement.js';
 import {getData, sendData} from './server.js';
 import {sendSuccess, sendFail} from './form.js';
@@ -36,7 +36,7 @@ const youPinIcon = L.icon({
   iconAnchor: [26, 52],
 });
 
-const marker = L.marker(
+let marker = L.marker(
   {
     lat: 35.6837,
     lng: 139.753,
@@ -57,26 +57,33 @@ formNotice.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
   const formData = new FormData(evt.target);
-  console.log(formData);
   sendData(sendSuccess, sendFail, formData);
 });
 
-// getResetAddress(marker, homeAddress);
+const formReset = () => {
+  marker.remove();
 
-// formReset.addEventListener('click', () => {
+  marker = L.marker({
+    lat: 35.6837,
+    lng: 139.753,
+  },
+  {
+    draggable: true,
+    icon: youPinIcon,
+  },
+  ).addTo(map);
 
-//   const newMarker = L.marker(
-//     {
-//       lat: 35.6837,
-//       lng: 139.753,
-//     },
-//     {
-//       draggable: true,
-//       icon: youPinIcon,
-//     },
-//   ).addTo(map);
-//   homeAddress.value = newMarker.getLatLng();
-// });
+  homeAddress.value = Object.values(marker.getLatLng());
+
+  marker.on('moveend', (evt) => {
+    homeAddress.value = Object.values(evt.target.getLatLng());
+  });
+};
+
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  formReset();
+});
 
 getData().then((announces) => {
   announces.forEach((elem) => {
